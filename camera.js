@@ -102,6 +102,7 @@ function detectPoseInRealTime(video, net) {
       drawFace(keypoints[0], keypoints[1], ctx);
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, ctx);
+        drawSkeleton(keypoints, minPartConfidence, ctx);
       }
     });
 
@@ -126,6 +127,8 @@ async function bindPage() {
   detectPoseInRealTime(video, net);
 }
 
+
+// ----tfjs-models/posenet/demos/demo_util.js
 function drawPoint(ctx, y, x, r, color) {
   ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -144,6 +147,29 @@ function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
     const { y, x } = keypoint.position;
     drawPoint(ctx, y * scale, x * scale, 3, color);
   }
+}
+
+function toTuple({y, x}) {
+  return [y, x];
+}
+
+function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
+  const adjacentKeyPoints =
+      posenet.getAdjacentKeyPoints(keypoints, minConfidence);
+
+  adjacentKeyPoints.forEach((keypoints) => {
+    drawSegment(
+        toTuple(keypoints[0].position), toTuple(keypoints[1].position), color, scale, ctx);
+  });
+}
+
+function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
+  ctx.beginPath();
+  ctx.moveTo(ax * scale, ay * scale);
+  ctx.lineTo(bx * scale, by * scale);
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = color;
+  ctx.stroke();
 }
 
 // 顔に写真を貼り付ける
