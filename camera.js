@@ -25,6 +25,7 @@ const flipHorizontal = false;
 const videoWidth = 900;
 const videoHeight = 700;
 const color = "aqua";
+const lineWidth = 2;
 
 let imageScale = 1;
 let imageFace = new Image();
@@ -100,6 +101,19 @@ function detectPoseInRealTime(video, net) {
 
     poses.forEach(({ score, keypoints }) => {
       drawFace(keypoints[0], keypoints[1], ctx);
+      //console.log("leftSholder: ",keypoints[5].position.y)
+      //console.log("leftElbow: ",keypoints[7].position.y)
+
+      rightFlag = raiseHand(keypoints[5], keypoints[7], keypoints[9]);
+      leftFlag = raiseHand(keypoints[6], keypoints[8], keypoints[10]);
+      if(leftFlag&&rightFlag){
+        console.log("両手あげてます")
+      }else if(leftFlag){
+        console.log("左手あげてます")
+      }else if(rightFlag) {
+        console.log("右手上げてます")
+      }
+      
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, ctx);
         drawSkeleton(keypoints, minPartConfidence, ctx);
@@ -186,5 +200,16 @@ function drawFace(nose, leye, ctx) {
     nh
   );
 }
+
+// 手の挙手判定
+function raiseHand(Shoulder, Elbow, Wrist) {
+  if((Shoulder.position.y > Elbow.position.y)&&(Elbow.position.y > Wrist.position.y)){
+    return true
+  }else{
+    return false
+  }
+}
+
+
 
 bindPage();
