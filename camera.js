@@ -27,9 +27,15 @@ const videoHeight = 700;
 const color = "aqua";
 const lineWidth = 2;
 
+let endMode = false;
+let allEnd = false;
+let limitEnd = 0;
+
 let imageScale = 1;
-let imageFace = new Image();
+const imageFace = new Image();
 imageFace.src = "image.png";
+const imageEnding = new Image();
+imageEnding.src = "ending.png";
 
 // カメラのセットアップ
 async function setupCamera() {
@@ -100,20 +106,37 @@ function detectPoseInRealTime(video, net) {
     ctx.restore();
 
     poses.forEach(({ score, keypoints }) => {
-      drawFace(keypoints[0], keypoints[1], ctx);
+      //drawFace(keypoints[0], keypoints[1], ctx);
       //console.log("leftSholder: ",keypoints[5].position.y)
       //console.log("leftElbow: ",keypoints[7].position.y)
 
       rightFlag = raiseHand(keypoints[5], keypoints[7], keypoints[9]);
       leftFlag = raiseHand(keypoints[6], keypoints[8], keypoints[10]);
       if(leftFlag&&rightFlag){
-        console.log("両手あげてます")
-      }else if(leftFlag){
-        console.log("左手あげてます")
-      }else if(rightFlag) {
-        console.log("右手上げてます")
+        if(firstFlag){
+          startTime = new Date();
+          firstFlag = false;
+        }
+        endTime = new Date();
+        s_delta = (endTime.getTime() - startTime.getTime())/1000;
+        console.log("両手をあげてます: ", s_delta)
+        if(s_delta > 2){
+          endMode = true; // 終了画面
+        }
+      } else {
+        startTime = null;
+        firstFlag = true;
+        if(leftFlag){
+          console.log("左手あげてます")
+        } else if(rightFlag) {
+          console.log("右手上げてます")
+        }
       }
-      
+
+      if(endMode){
+        endShutter(keypoints[10], keypoints[9], ctx);
+      }
+
       if (score >= minPoseConfidence) {
         drawKeypoints(keypoints, minPartConfidence, ctx);
         drawSkeleton(keypoints, minPartConfidence, ctx);
@@ -142,7 +165,7 @@ async function bindPage() {
 }
 
 
-// ----tfjs-models/posenet/demos/demo_util.js
+// ----tfjs-models/posenet/demos/demo_util.js----
 function drawPoint(ctx, y, x, r, color) {
   ctx.beginPath();
   ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -201,7 +224,7 @@ function drawFace(nose, leye, ctx) {
   );
 }
 
-// 手の挙手判定
+// 挙手判定
 function raiseHand(Shoulder, Elbow, Wrist) {
   if((Shoulder.position.y > Elbow.position.y)&&(Elbow.position.y > Wrist.position.y)){
     return true
@@ -209,6 +232,38 @@ function raiseHand(Shoulder, Elbow, Wrist) {
     return false
   }
 }
+
+// 終わりシャッター
+function endShutter(leftWrist, rightWrist, ctx) {
+  if(leftWrist.position.y < rightWrist.position.y){
+    shutter_y = leftWrist.position.y - videoHeight;
+  }else{
+    shutter_y = rightWrist.position.y - videoHeight;
+  }
+  
+  if(shutter_y > -30){
+    limitEnd += 1;
+  }
+  //console.log(shutter_y);
+  //console.log("limitEnd: ", limitEnd);
+  if (limitEnd > 20){
+    ctx.drawImage(
+      imageEnding,
+      5,
+      0,
+      videoWidth,
+      videoHeight
+    );
+  }else{
+    ctx.drawImage(
+      imageEnding,
+      5,
+      shutter_y,
+      videoWidth,
+      videoHeight
+      );
+    }
+  }
 
 
 
