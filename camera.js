@@ -19,7 +19,7 @@
  *
  */
 
-const imageScaleFactor = 0.2;
+const imageScaleFactor = 0.5;
 const outputStride = 16;
 const flipHorizontal = false;
 const videoWidth = 900;
@@ -150,7 +150,7 @@ function detectPoseInRealTime(video, net) {
 
 // Posenetのモデルを読み込んでカメラを開始する
 async function bindPage() {
-  const net = await posenet.load(); // posenetの呼び出し
+  const net = await posenet.load(1.0); // posenetの呼び出し
 
   document.getElementById("loading").style.display = "none";
   document.getElementById("main").style.display = "block";
@@ -241,12 +241,12 @@ function endShutter(leftWrist, rightWrist, ctx) {
     shutter_y = rightWrist.position.y - videoHeight;
   }
   
-  if(shutter_y > -30){
+  if(shutter_y > -50){
     limitEnd += 1;
   }
   //console.log(shutter_y);
   //console.log("limitEnd: ", limitEnd);
-  if (limitEnd > 20){
+  if (limitEnd > 10){
     ctx.drawImage(
       imageEnding,
       5,
