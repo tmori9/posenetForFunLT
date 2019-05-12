@@ -264,7 +264,6 @@ function endShutter(leftWrist, rightWrist, ctx) {
       );
     }
   }
-
-
+  
 
 bindPage();
