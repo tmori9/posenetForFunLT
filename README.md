@@ -5,7 +5,7 @@
 ### PoseNet
 Pose Detection in the Browser
 * [GitHub](https://github.com/tensorflow/tfjs-models/tree/master/posenet)
-* [デモ](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)
+* [公式デモ](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html)
 * [ブログ (Medium)](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5)
 
 ### Difference from Official Demo
@@ -30,6 +30,8 @@ $ open index.html
 # Unix
 $ chrome index.html
 ```
+
+要するにダウンロードしてブラウザで起動
 
 ## LICENCE
 [Apache License2.0](https://github.com/YutoMori/posenetForFunLT/blob/master/LICENSE)
