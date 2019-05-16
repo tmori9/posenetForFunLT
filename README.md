@@ -36,5 +36,3 @@ $ chrome index.html
 ## LICENCE
 [Apache License2.0](https://github.com/YutoMori/posenetForFunLT/blob/master/LICENSE)
 
-
-Copyright 2018 Google Inc. All Rights Reserved.
