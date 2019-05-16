@@ -13,7 +13,7 @@ Pose Detection in the Browser
 * LTの終了画面をシャッターでおろせるようにした（？）
 
 ## Demo
-TBA
+![demo](https://github.com/YutoMori/posenetForFunLT/blob/master/posenetDemo.gif)
 
 ## Install
 
