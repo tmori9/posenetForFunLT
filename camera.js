@@ -33,7 +33,7 @@ let limitEnd = 0;
 
 let imageScale = 1;
 const imageFace = new Image();
-imageFace.src = "image.png";
+imageFace.src = "face.png";
 const imageEnding = new Image();
 imageEnding.src = "ending.png";
 
@@ -106,7 +106,7 @@ function detectPoseInRealTime(video, net) {
     ctx.restore();
 
     poses.forEach(({ score, keypoints }) => {
-      //drawFace(keypoints[0], keypoints[1], ctx);
+      drawFace(keypoints[0], keypoints[1], ctx);
       //console.log("leftSholder: ",keypoints[5].position.y)
       //console.log("leftElbow: ",keypoints[7].position.y)
 
@@ -212,13 +212,14 @@ function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
 // 顔に写真を貼り付ける
 function drawFace(nose, leye, ctx) {
   imageScale = (leye.position.x - nose.position.x - 50) / 50;
-  if (imageScale < 0.7) imageScale = 0.7;
+  if (imageScale < 2.0) imageScale = 2.0;
+  console.log(imageScale)
   let nw = imageFace.width * imageScale;
   let nh = imageFace.height * imageScale;
   ctx.drawImage(
     imageFace,
     nose.position.x - nh / 2,
-    nose.position.y - nh / 1.5,
+    nose.position.y - nh / 2,
     nw,
     nh
   );
