@@ -15,7 +15,7 @@
  * =============================================================================
  *
  * This program was changed by Yuto Mori.
- * TODO: change things
+ * change: please refer to "Difference from Demo" in READEME.md
  *
  */
 
