@@ -106,7 +106,8 @@ function detectPoseInRealTime(video, net) {
     ctx.restore();
 
     poses.forEach(({ score, keypoints }) => {
-      drawFace(keypoints[0], keypoints[1], ctx);
+      // 顔を隠したいならのコメントを外してください
+      //drawFace(keypoints[0], keypoints[1], ctx);
       //console.log("leftSholder: ",keypoints[5].position.y)
       //console.log("leftElbow: ",keypoints[7].position.y)
 
