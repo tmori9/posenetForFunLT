@@ -33,6 +33,28 @@ $ chrome index.html
 
 要するにダウンロードしてブラウザで起動
 
+## Q&A
+### パフォーマンスや精度を上げたい（or スペック不足により下げたい）場合
+
+
+下記の変数の数値を変更してください
+- multiplier
+- imageScaleFactor
+- outputStride
+
+```
+# 使用されている箇所 (camera.js)
+
+const net = await posenet.load(multiplier);
+const pose = await net.estimateSinglePose(
+    image, imageScaleFactor, flipHorizontal, outputStride
+    );
+```
+
+
+
+調整方法は [公式のREADME](https://github.com/tensorflow/tfjs-models/tree/master/posenet) を参照してください
+
 ## LICENCE
 [Apache License2.0](https://github.com/YutoMori/posenetForFunLT/blob/master/LICENSE)
 
