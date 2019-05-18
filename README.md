@@ -15,6 +15,9 @@ Pose Detection in the Browser
 ## Demo
 ![demo](https://github.com/YutoMori/posenetForFunLT/blob/master/posenetDemo.gif)
 
+## Slide
+LTで使用した [プレゼンテーションスライド](https://www.slideshare.net/YutoMori2/pc-posenet)
+
 ## Install
 
 ```
