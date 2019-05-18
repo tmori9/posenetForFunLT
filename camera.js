@@ -25,7 +25,7 @@ const flipHorizontal = false;
 const videoWidth = 900;
 const videoHeight = 700;
 const color = "aqua";
-const lineWidth = 2;
+const lineWidth = 4;
 
 let endMode = false;
 let allEnd = false;
@@ -183,7 +183,7 @@ function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
     }
 
     const { y, x } = keypoint.position;
-    drawPoint(ctx, y * scale, x * scale, 3, color);
+    drawPoint(ctx, y * scale, x * scale, 4, color);
   }
 }
 
