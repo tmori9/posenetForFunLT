@@ -2,7 +2,7 @@
 2019/05/18に行われた [未来大×企業エンジニア 春のLT大会](https://fun.connpass.com/event/127784/) で使用したPoseNetのデモ
 
 
-GitHub Pages → https://yutomori.github.io/posenetForFunLT/
+GitHub Pages → https://tmori9.github.io/posenetForFunLT/
 
 ## Description
 ### PoseNet
