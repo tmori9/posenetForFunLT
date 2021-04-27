@@ -19,7 +19,7 @@ Pose Detection in the Browser
 - PoseNet の公式のデモから UI や Multi-Person Pose Estimation 機能を省いた
 - LT の終了画面をシャッターでおろせるようにした（？）
 
-## Demo
+## Demo (デモ)
 
 ![demo](https://github.com/YutoMori/posenetForFunLT/blob/master/posenetDemo.gif)
 
